@@ -1,16 +1,18 @@
 import 'dart:async';
 
-import 'package:tic_tac_toe_lib/src/IGame.dart';
+import 'package:tic_tac_toe_lib/src/igame.dart';
 import 'package:tic_tac_toe_lib/src/Strategy/IStrategy.dart';
 import 'package:tic_tac_toe_lib/src/igame_listener.dart';
 import 'package:tic_tac_toe_lib/src/logs/logging.dart';
 import 'package:tic_tac_toe_lib/src/GameInfo/position.dart';
 
-import 'GameInfo/Turn.dart';
+import 'GameInfo/turn.dart';
 import 'board.dart';
 import 'GameInfo/piece.dart';
 import 'GameInfo/game_state.dart';
 import 'GameExceptions/game_exceptions.dart';
+
+typedef ListenerList = List<IGameListener>;
 
 class Game implements IGame {
   final log = logger(Game);
@@ -134,7 +136,15 @@ class Game implements IGame {
   }
 
   @override
-  Board get gameBoard => _mGameBoard;
+  List<List<Piece?>> get gameBoard {
+    List<List<Piece?>> result = List.generate(3, (index) => List.generate(3, (index) => null));
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        result[i][j] = _mGameBoard.at(Position(i, j));
+      }
+    }
+    return result;
+  }
 
   set strategy(IStrategy? strategy) => _mStrategy = strategy;
   IStrategy? get strategy => _mStrategy;
@@ -171,5 +181,3 @@ class Game implements IGame {
     return _mState == GameState.Tie;
   }
 }
-
-typedef ListenerList = List<IGameListener>;

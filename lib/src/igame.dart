@@ -1,8 +1,9 @@
-import 'package:tic_tac_toe_lib/src/board.dart';
-import 'package:tic_tac_toe_lib/src/igame_listener.dart';
-import 'package:tic_tac_toe_lib/src/GameInfo/position.dart';
 import 'package:tic_tac_toe_lib/src/GameInfo/piece.dart';
+import 'package:tic_tac_toe_lib/src/GameInfo/position.dart';
 import 'package:tic_tac_toe_lib/src/Strategy/IStrategy.dart';
+
+import 'package:tic_tac_toe_lib/src/game.dart';
+import 'package:tic_tac_toe_lib/src/igame_listener.dart';
 
 abstract class IGame {
   void placePiece(Position p);
@@ -13,5 +14,7 @@ abstract class IGame {
   bool isOver();
 
   set strategy(IStrategy? strategy);
-  Board get gameBoard;
+  List<List<Piece?>>? get gameBoard;
+
+  factory IGame.produce() => Game();
 }
