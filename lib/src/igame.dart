@@ -18,7 +18,7 @@ abstract class IGame {
   set difficulty(Difficulty difficulty);
   List<List<Piece?>>? get gameBoard;
 
-//Getters
+//Getters for game
   Turn get turn;
   Stopwatch get stopWatch;
 
