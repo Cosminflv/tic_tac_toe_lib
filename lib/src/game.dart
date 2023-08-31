@@ -53,6 +53,7 @@ class Game implements IGame {
   }
 
   Stopwatch get stopWatch => _stopwatch;
+  Turn get turn => _mTurn;
 
   @override
   void placePiece(Position p) {
