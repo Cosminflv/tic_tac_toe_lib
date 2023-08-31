@@ -14,6 +14,7 @@ abstract class IGame {
   bool isOver();
 
   set strategy(IStrategy? strategy);
+  set difficulty(Difficulty difficulty);
   List<List<Piece?>>? get gameBoard;
 
   factory IGame.produce() => Game();

@@ -149,6 +149,9 @@ class Game implements IGame {
   set strategy(IStrategy? strategy) => _mStrategy = strategy;
   IStrategy? get strategy => _mStrategy;
 
+  @override
+  set difficulty(Difficulty difficulty) => _mStrategy = IStrategy.difficulty(difficulty);
+
   void notifyPiecePlaced(Position p, Piece piece) {
     for (var curr in listeners) {
       curr.onPiecePlaced(p, piece);
