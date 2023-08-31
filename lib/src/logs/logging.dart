@@ -24,7 +24,7 @@ class CustomerPrinter extends LogPrinter {
 
     final logMessage = '$time $emoji $className: $message';
 
-    logFile.writeAsStringSync('$logMessage\n', mode: FileMode.append);
+    //logFile.writeAsStringSync('$logMessage\n', mode: FileMode.append);
 
     return [color!('$time $emoji $className: $message')];
   }
