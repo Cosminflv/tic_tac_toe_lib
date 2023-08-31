@@ -103,6 +103,7 @@ class Game implements IGame {
         }
       } else if (_mState == GameState.Playing) {
         log.i('switchTurn called');
+        notifyPiecePlaced(p, pieceBasedOnTurn());
         _mTurn = _mTurn.switchTurn();
       }
     } on GameException catch (e) {
