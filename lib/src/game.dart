@@ -52,7 +52,6 @@ class Game implements IGame {
     });
   }
 
-  Stopwatch get stopWatch => _stopwatch;
   @override
   Turn get turn => _mTurn;
 
@@ -186,4 +185,7 @@ class Game implements IGame {
   bool isDraw() {
     return _mState == GameState.Tie;
   }
+
+  @override
+  Stopwatch get stopWatch => _stopwatch;
 }

@@ -19,6 +19,7 @@ abstract class IGame {
   List<List<Piece?>>? get gameBoard;
 
   Turn get turn;
+  Stopwatch get stopWatch;
 
   factory IGame.produce() => Game();
 }
