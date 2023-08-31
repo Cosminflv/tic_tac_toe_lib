@@ -1,5 +1,6 @@
 import 'package:tic_tac_toe_lib/src/GameInfo/piece.dart';
 import 'package:tic_tac_toe_lib/src/GameInfo/position.dart';
+import 'package:tic_tac_toe_lib/src/GameInfo/turn.dart';
 import 'package:tic_tac_toe_lib/src/Strategy/IStrategy.dart';
 
 import 'package:tic_tac_toe_lib/src/game.dart';
@@ -16,6 +17,8 @@ abstract class IGame {
   set strategy(IStrategy? strategy);
   set difficulty(Difficulty difficulty);
   List<List<Piece?>>? get gameBoard;
+
+  Turn get turn;
 
   factory IGame.produce() => Game();
 }
