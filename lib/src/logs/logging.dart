@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:logger/logger.dart';
 
 Logger logger(Type type) {
-  final logFilePath = r'D:\tictactoe\tic_tac_toe_lib\lib\src\logs\$type.log';
+  //final logFilePath = r'D:\tictactoe\tic_tac_toe_lib\lib\src\logs\$type.log';
+  final logFilePath = r'dependency\tic_tac_toe_lib\lib\src\logs\$type.log';
   final logFilePathWithType = logFilePath.replaceFirst(r'$type', type.toString());
   final logFile = File(logFilePathWithType);
   //Logger(printer: CustomerPrinter(type.toString()), level: Level.trace);
