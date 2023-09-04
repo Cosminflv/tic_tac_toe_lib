@@ -47,7 +47,8 @@ class Game implements IGame {
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
       notifyTimerChange();
       if (isOver()) {
-        return;
+        _stopwatch.stop();
+        _timer.cancel();
       }
     });
   }
@@ -113,6 +114,7 @@ class Game implements IGame {
   @override
   void restart() {
     _mGameBoard = Board();
+    _stopwatch.reset();
     _mTurn = Turn.crossTurn;
     _mState = GameState.Playing;
     log.e('Game has restarted');
