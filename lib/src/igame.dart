@@ -20,8 +20,7 @@ abstract class IGame {
 
   Turn get turn;
   Stopwatch get stopWatch;
-  Stopwatch get stopWatchX;
-  Stopwatch get stopWatchO;
+  Stopwatch get stopWatchLimited;
 
   factory IGame.produce({bool? wantTimer}) => Game(wantTimer: wantTimer);
 }

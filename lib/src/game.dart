@@ -23,9 +23,8 @@ class Game implements IGame {
     _mState = GameState.Playing;
     _mStrategy = null;
     if (wantTimer == true) {
-      _stopwatch.start();
-      _stopwatchO.start();
-      _stopwatchX.start();
+      _stopWatch.start();
+      _stopWatchLimited.start();
       stopWatchRefresh();
     }
   }
@@ -36,7 +35,8 @@ class Game implements IGame {
         _mState = GameState.Playing;
 
   factory Game.produce() => Game();
-  factory Game.produceFromString(String matrixInString) => Game.boardString(matrixInString);
+  factory Game.produceFromString(String matrixInString) =>
+      Game.boardString(matrixInString);
 
   Board _mGameBoard = Board();
   Turn _mTurn = Turn.crossTurn;
@@ -44,32 +44,28 @@ class Game implements IGame {
   ListenerList listeners = [];
   IStrategy? _mStrategy;
   late Timer _timer;
-  final Stopwatch _stopwatch = Stopwatch();
-  final Stopwatch _stopwatchX = Stopwatch();
-  final Stopwatch _stopwatchO = Stopwatch();
+  final Stopwatch _stopWatch = Stopwatch();
+  final Stopwatch _stopWatchLimited = Stopwatch();
 
   void stopWatchRefresh() {
     _timer = Timer.periodic(const Duration(milliseconds: 250), (Timer t) async {
-      if (_mTurn == Turn.crossTurn) {
-        if (_stopwatchX.elapsedMilliseconds > 20000) {
-          _mState = GameState.ZeroWon;
+      if (!isOver()) {
+        if (_stopWatchLimited.elapsedMilliseconds > 5000) {
+          if (_mTurn == Turn.crossTurn) {
+            _mState = GameState.ZeroWon;
+          } else {
+            _mState = GameState.CrossWon;
+          }
           notifyGameOver(_mState);
+          _timer.cancel();
+          _stopWatchLimited.stop();
         } else {
-          notifyXTimerChange();
-        }
-      }
-
-      if (_mTurn == Turn.zeroTurn) {
-        if (_stopwatchO.elapsedMilliseconds > 20000) {
-          _mState = GameState.CrossWon;
-          notifyGameOver(_mState);
-        } else {
-          notifyOTimerChange();
+          notifyTimerLimitedChange();
         }
       }
 
       if (isOver()) {
-        _stopwatch.stop();
+        _stopWatch.stop();
         _timer.cancel();
       } else {
         notifyTimerChange();
@@ -92,8 +88,12 @@ class Game implements IGame {
       _mGameBoard.placePiece(p, pieceBasedOnTurn());
       log.i('notifyPiecePlaced(p, pieceBasedOnTurn()) has been called');
       notifyPiecePlaced(p, pieceBasedOnTurn());
+      _stopWatchLimited.reset();
+      _stopWatchLimited.start();
       if (_mGameBoard.isOverWon(pieceBasedOnTurn())) {
-        _mState = pieceBasedOnTurn() == Piece.Cross ? GameState.CrossWon : GameState.ZeroWon;
+        _mState = pieceBasedOnTurn() == Piece.Cross
+            ? GameState.CrossWon
+            : GameState.ZeroWon;
         log.i('notifyGameOver(_mState) called');
         notifyGameOver(_mState);
         return;
@@ -115,7 +115,9 @@ class Game implements IGame {
         notifyPiecePlaced(toPlacePosition, Piece.Zero);
 
         if (_mGameBoard.isOverWon(Piece.Zero)) {
-          _mState = pieceBasedOnTurn() == Piece.Cross ? GameState.ZeroWon : GameState.CrossWon;
+          _mState = pieceBasedOnTurn() == Piece.Cross
+              ? GameState.ZeroWon
+              : GameState.CrossWon;
           log.i('notifyGameOver(GameState.ZeroWon) called');
           notifyGameOver(GameState.ZeroWon);
         }
@@ -141,9 +143,11 @@ class Game implements IGame {
     _mTurn = Turn.crossTurn;
     _mState = GameState.Playing;
     log.e('Game has restarted');
+    _stopWatchLimited.reset();
+    _stopWatchLimited.start();
     _timer.cancel();
-    _stopwatch.reset();
-    _stopwatch.start();
+    _stopWatch.reset();
+    _stopWatch.start();
     stopWatchRefresh();
     notifyRestart();
   }
@@ -152,7 +156,8 @@ class Game implements IGame {
   void addListener(IGameListener listenerToAdd) => listeners.add(listenerToAdd);
 
   @override
-  void removeListener(IGameListener listenerToRemove) => listeners.remove(listenerToRemove);
+  void removeListener(IGameListener listenerToRemove) =>
+      listeners.remove(listenerToRemove);
 
   @override
   Piece? at(Position p) {
@@ -165,22 +170,29 @@ class Game implements IGame {
 
   Turn switchTurn() {
     if (_mTurn == Turn.crossTurn) {
-      _stopwatchO.reset();
+      _stopWatchLimited.reset();
+      _stopWatchLimited.start();
+      notifySwitchTurn(Turn.zeroTurn);
       return Turn.zeroTurn;
     } else {
-      _stopwatchX.reset();
+      _stopWatchLimited.reset();
+      _stopWatchLimited.start();
+      notifySwitchTurn(Turn.crossTurn);
       return Turn.crossTurn;
     }
   }
 
   @override
   bool isOver() {
-    return _mState == GameState.CrossWon || _mState == GameState.ZeroWon || _mState == GameState.Tie;
+    return _mState == GameState.CrossWon ||
+        _mState == GameState.ZeroWon ||
+        _mState == GameState.Tie;
   }
 
   @override
   List<List<Piece?>> get gameBoard {
-    List<List<Piece?>> result = List.generate(3, (index) => List.generate(3, (index) => null));
+    List<List<Piece?>> result =
+        List.generate(3, (index) => List.generate(3, (index) => null));
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         result[i][j] = _mGameBoard.at(Position(i, j));
@@ -194,7 +206,8 @@ class Game implements IGame {
   IStrategy? get strategy => _mStrategy;
 
   @override
-  set difficulty(Difficulty difficulty) => _mStrategy = IStrategy.difficulty(difficulty);
+  set difficulty(Difficulty difficulty) =>
+      _mStrategy = IStrategy.difficulty(difficulty);
 
   void notifyPiecePlaced(Position p, Piece piece) {
     for (var curr in listeners) {
@@ -220,15 +233,15 @@ class Game implements IGame {
     }
   }
 
-  void notifyXTimerChange() {
+  void notifyTimerLimitedChange() {
     for (var curr in listeners) {
-      curr.onXTimerChange(_mState);
+      curr.onTimerChange(_mState);
     }
   }
 
-  void notifyOTimerChange() {
+  void notifySwitchTurn(Turn turn) {
     for (var curr in listeners) {
-      curr.onOTimerChange(_mState);
+      curr.onSwitchTurn(turn);
     }
   }
 
@@ -241,11 +254,9 @@ class Game implements IGame {
   }
 
   @override
-  Stopwatch get stopWatch => _stopwatch;
+  Stopwatch get stopWatch => _stopWatch;
 
   @override
-  Stopwatch get stopWatchX => _stopwatchX;
-
-  @override
-  Stopwatch get stopWatchO => _stopwatchO;
+  // TODO: implement stopwatchLimited
+  Stopwatch get stopWatchLimited => _stopWatchLimited;
 }

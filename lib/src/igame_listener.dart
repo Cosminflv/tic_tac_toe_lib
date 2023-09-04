@@ -1,4 +1,5 @@
 import 'package:tic_tac_toe_lib/src/GameInfo/position.dart';
+import 'package:tic_tac_toe_lib/src/GameInfo/turn.dart';
 
 import 'GameInfo/game_state.dart';
 import 'GameInfo/piece.dart';
@@ -8,6 +9,6 @@ abstract class IGameListener {
   void onGameOver(GameState state);
   void onRestart();
   void onTimerChange(GameState state);
-  void onXTimerChange(GameState state);
-  void onOTimerChange(GameState state);
+  void onTimerLimitedChange(GameState turn);
+  void onSwitchTurn(Turn turn);
 }
