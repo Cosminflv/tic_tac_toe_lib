@@ -20,6 +20,8 @@ abstract class IGame {
 
   Turn get turn;
   Stopwatch get stopWatch;
+  Stopwatch get stopWatchX;
+  Stopwatch get stopWatchO;
 
   factory IGame.produce() => Game();
 }
