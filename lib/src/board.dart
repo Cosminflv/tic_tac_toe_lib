@@ -5,6 +5,8 @@ import 'package:tic_tac_toe_lib/src/logs/logging.dart';
 
 import 'GameInfo/piece.dart';
 
+// COMMENT
+
 class Board {
   final log = logger(Board);
 
