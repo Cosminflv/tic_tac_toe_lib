@@ -49,6 +49,7 @@ class Game implements IGame {
         _stopwatch.stop();
         _timer.cancel();
       } else {
+        //only when is not over
         notifyTimerChange();
       }
     });
