@@ -91,7 +91,7 @@ class Game implements IGame {
         notifyPiecePlaced(toPlacePosition, Piece.Zero);
 
         if (_mGameBoard.isOverWon(Piece.Zero)) {
-          _mState = pieceBasedOnTurn() == Piece.Cross ? GameState.CrossWon : GameState.ZeroWon;
+          _mState = pieceBasedOnTurn() == Piece.Cross ? GameState.ZeroWon : GameState.CrossWon;
           log.i('notifyGameOver(GameState.ZeroWon) called');
           notifyGameOver(GameState.ZeroWon);
         }
