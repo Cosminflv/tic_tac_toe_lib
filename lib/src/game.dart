@@ -177,7 +177,7 @@ class Game implements IGame {
 
   void notifyTimerChange() {
     for (var curr in listeners) {
-      curr.onTimerChange();
+      curr.onTimerChange(_mState);
     }
   }
 
