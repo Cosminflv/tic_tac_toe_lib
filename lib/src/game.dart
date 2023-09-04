@@ -44,7 +44,7 @@ class Game implements IGame {
   final Stopwatch _stopwatch = Stopwatch();
 
   void stopWatchRefresh() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
+    _timer = Timer.periodic(const Duration(milliseconds: 250), (Timer t) async {
       notifyTimerChange();
       if (isOver()) {
         _stopwatch.stop();
