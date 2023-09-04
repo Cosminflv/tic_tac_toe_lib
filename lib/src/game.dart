@@ -119,7 +119,8 @@ class Game implements IGame {
     log.e('Game has restarted');
     _stopwatch.reset();
     _stopwatch.start();
-    //stopWatchRefresh();
+    _timer.cancel();
+    stopWatchRefresh();
     notifyRestart();
   }
 
