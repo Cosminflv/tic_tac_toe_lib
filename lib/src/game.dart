@@ -17,7 +17,7 @@ typedef ListenerList = List<IGameListener>;
 class Game implements IGame {
   final log = logger(Game);
 
-  Game([bool? wantTimer]) {
+  Game({bool? wantTimer}) {
     _mGameBoard = Board();
     _mTurn = Turn.crossTurn;
     _mState = GameState.Playing;
@@ -50,14 +50,22 @@ class Game implements IGame {
 
   void stopWatchRefresh() {
     _timer = Timer.periodic(const Duration(milliseconds: 250), (Timer t) async {
-      if (_mTurn == Turn.crossTurn && _stopwatchX.elapsedMilliseconds > 200000) {
-        _mState = GameState.ZeroWon;
-        notifyGameOver(_mState);
+      if (_mTurn == Turn.crossTurn) {
+        if (_stopwatchX.elapsedMilliseconds > 20000) {
+          _mState = GameState.ZeroWon;
+          notifyGameOver(_mState);
+        } else {
+          notifyXTimerChange();
+        }
       }
 
-      if (_mTurn == Turn.zeroTurn && _stopwatchO.elapsedMilliseconds > 200000) {
-        _mState = GameState.CrossWon;
-        notifyGameOver(_mState);
+      if (_mTurn == Turn.zeroTurn) {
+        if (_stopwatchO.elapsedMilliseconds > 20000) {
+          _mState = GameState.CrossWon;
+          notifyGameOver(_mState);
+        } else {
+          notifyOTimerChange();
+        }
       }
 
       if (isOver()) {
@@ -209,6 +217,18 @@ class Game implements IGame {
   void notifyTimerChange() {
     for (var curr in listeners) {
       curr.onTimerChange(_mState);
+    }
+  }
+
+  void notifyXTimerChange() {
+    for (var curr in listeners) {
+      curr.onXTimerChange(_mState);
+    }
+  }
+
+  void notifyOTimerChange() {
+    for (var curr in listeners) {
+      curr.onOTimerChange(_mState);
     }
   }
 

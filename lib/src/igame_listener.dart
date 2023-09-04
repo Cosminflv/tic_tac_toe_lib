@@ -8,4 +8,6 @@ abstract class IGameListener {
   void onGameOver(GameState state);
   void onRestart();
   void onTimerChange(GameState state);
+  void onXTimerChange(GameState state);
+  void onOTimerChange(GameState state);
 }

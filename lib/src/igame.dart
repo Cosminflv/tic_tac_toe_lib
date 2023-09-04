@@ -23,5 +23,5 @@ abstract class IGame {
   Stopwatch get stopWatchX;
   Stopwatch get stopWatchO;
 
-  factory IGame.produce() => Game();
+  factory IGame.produce({bool? wantTimer}) => Game(wantTimer: wantTimer);
 }
