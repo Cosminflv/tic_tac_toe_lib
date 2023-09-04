@@ -5,7 +5,25 @@ import 'package:tic_tac_toe_lib/src/board.dart';
 
 import '../GameInfo/position.dart';
 
-enum Difficulty { easy, medium, hard }
+enum Difficulty {
+  easy,
+  medium,
+  hard;
+
+  @override
+  String toString() {
+    switch (this) {
+      case Difficulty.easy:
+        return "Easy";
+      case Difficulty.medium:
+        return "Medium";
+      case Difficulty.hard:
+        return "Hard";
+      default:
+        return "";
+    }
+  }
+}
 
 abstract class IStrategy {
   Position bestMove(Board board);

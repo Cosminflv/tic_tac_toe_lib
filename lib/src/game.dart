@@ -142,8 +142,10 @@ class Game implements IGame {
 
   @override
   void addListener(IGameListener listenerToAdd) => listeners.add(listenerToAdd);
+
   @override
   void removeListener(IGameListener listenerToRemove) => listeners.remove(listenerToRemove);
+
   @override
   Piece? at(Position p) {
     return _mGameBoard[p.x][p.y];
@@ -179,6 +181,7 @@ class Game implements IGame {
     return result;
   }
 
+  @override
   set strategy(IStrategy? strategy) => _mStrategy = strategy;
   IStrategy? get strategy => _mStrategy;
 
