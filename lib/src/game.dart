@@ -24,6 +24,7 @@ class Game implements IGame {
     _mStrategy = null;
     if (wantTimer == true) {
       _stopwatch.start();
+      _stopwatchX.start();
       stopWatchRefresh();
     }
   }
@@ -42,9 +43,21 @@ class Game implements IGame {
   IStrategy? _mStrategy;
   late Timer _timer;
   final Stopwatch _stopwatch = Stopwatch();
+  final Stopwatch _stopwatchX = Stopwatch();
+  final Stopwatch _stopwatchO = Stopwatch();
 
   void stopWatchRefresh() {
     _timer = Timer.periodic(const Duration(milliseconds: 250), (Timer t) async {
+      if (_mTurn == Turn.crossTurn && _stopwatchX.elapsedMilliseconds > 200000) {
+        _mState = GameState.ZeroWon;
+        notifyGameOver(_mState);
+      }
+
+      if (_mTurn == Turn.zeroTurn && _stopwatchO.elapsedMilliseconds > 200000) {
+        _mState = GameState.CrossWon;
+        notifyGameOver(_mState);
+      }
+
       if (isOver()) {
         _stopwatch.stop();
         _timer.cancel();
@@ -105,7 +118,7 @@ class Game implements IGame {
       } else if (_mState == GameState.Playing) {
         log.i('switchTurn called');
         notifyPiecePlaced(p, pieceBasedOnTurn());
-        _mTurn = _mTurn.switchTurn();
+        _mTurn = switchTurn();
       }
     } on GameException catch (e) {
       print(e.message);
@@ -136,6 +149,16 @@ class Game implements IGame {
 
   factory Game.create() {
     return Game();
+  }
+
+  Turn switchTurn() {
+    if (_mTurn == Turn.crossTurn) {
+      _stopwatchO.reset();
+      return Turn.zeroTurn;
+    } else {
+      _stopwatchX.reset();
+      return Turn.crossTurn;
+    }
   }
 
   @override
