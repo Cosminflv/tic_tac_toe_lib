@@ -24,6 +24,7 @@ class Game implements IGame {
     _mStrategy = null;
     if (wantTimer == true) {
       _stopwatch.start();
+      _stopwatchO.start();
       _stopwatchX.start();
       stopWatchRefresh();
     }
