@@ -33,6 +33,7 @@ class Game implements IGame {
       : _mGameBoard = Board.fromString(matrixInString),
         _mTurn = Turn.crossTurn,
         _mState = GameState.Playing;
+
   factory Game.produce() => Game();
   factory Game.produceFromString(String matrixInString) => Game.boardString(matrixInString);
 
@@ -217,4 +218,10 @@ class Game implements IGame {
 
   @override
   Stopwatch get stopWatch => _stopwatch;
+
+  @override
+  Stopwatch get stopWatchX => _stopwatchX;
+
+  @override
+  Stopwatch get stopWatchO => _stopwatchO;
 }
