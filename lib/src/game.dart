@@ -118,9 +118,9 @@ class Game implements IGame {
     _mTurn = Turn.crossTurn;
     _mState = GameState.Playing;
     log.e('Game has restarted');
+    _timer.cancel();
     _stopwatch.reset();
     _stopwatch.start();
-    _timer.cancel();
     stopWatchRefresh();
     notifyRestart();
   }
