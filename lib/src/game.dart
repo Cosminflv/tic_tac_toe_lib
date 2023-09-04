@@ -118,8 +118,8 @@ class Game implements IGame {
     _mState = GameState.Playing;
     log.e('Game has restarted');
     _stopwatch.reset();
-    _stopwatch.start();
-    stopWatchRefresh();
+    //_stopwatch.start();
+    //stopWatchRefresh();
     notifyRestart();
   }
 
