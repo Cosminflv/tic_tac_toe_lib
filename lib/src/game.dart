@@ -45,13 +45,13 @@ class Game implements IGame {
 
   void stopWatchRefresh() {
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
+      notifyTimerChange();
       if (isOver()) {
         _stopwatch.stop();
         _timer.cancel();
         notifyTimerChange();
       }
     });
-    notifyTimerChange();
   }
 
   @override
