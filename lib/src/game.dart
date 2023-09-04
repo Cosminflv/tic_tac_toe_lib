@@ -115,10 +115,10 @@ class Game implements IGame {
   @override
   void restart() {
     _mGameBoard = Board();
-    _stopwatch.reset();
     _mTurn = Turn.crossTurn;
     _mState = GameState.Playing;
     log.e('Game has restarted');
+    _stopwatch.reset();
     notifyRestart();
     stopWatchRefresh();
   }
