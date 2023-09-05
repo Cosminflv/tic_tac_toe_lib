@@ -1,3 +1,4 @@
+import 'package:logger/logger.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -67,6 +68,7 @@ void main() {
   });
 
   test('When restart is called, onRestart is called', () {
+    Logger.level = Level.off;
     Game g = Game.produceFromString('x o o\no x o\n- o -\n');
     var listenerMock = MockIGameListener();
 

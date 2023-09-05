@@ -1,3 +1,4 @@
+import 'package:logger/logger.dart';
 import 'package:tic_tac_toe_lib/src/board.dart';
 import 'package:tic_tac_toe_lib/src/GameExceptions/cannot_place_exception.dart';
 import 'package:tic_tac_toe_lib/src/GameExceptions/game_over_exception.dart';
@@ -72,6 +73,7 @@ void main() {
     });
 
     test('Restart test', () {
+      Logger.level = Level.off;
       var g = Game.produceFromString('x o x\nx o x\no x -\n');
       expect(() => g.placePiece(Position(2, 2)), returnsNormally);
       expect(() => g.restart(), returnsNormally);

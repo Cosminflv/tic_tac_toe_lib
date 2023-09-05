@@ -29,10 +29,15 @@ class Game implements IGame {
     }
   }
 
-  Game.boardString(String matrixInString)
-      : _mGameBoard = Board.fromString(matrixInString),
-        _mTurn = Turn.crossTurn,
-        _mState = GameState.Playing;
+  Game.boardString(String matrixInString) {
+    _mGameBoard = Board.fromString(matrixInString);
+    _mTurn = Turn.crossTurn;
+    _mState = GameState.Playing;
+    _mStrategy = null;
+    _stopWatch.start();
+    _stopWatchLimited.start();
+    initTimer();
+  }
 
   factory Game.produce() => Game();
   factory Game.produceFromString(String matrixInString) => Game.boardString(matrixInString);
