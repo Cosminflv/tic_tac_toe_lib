@@ -8,7 +8,6 @@ abstract class IGameListener {
   void onPiecePlaced(Position p, Piece piece);
   void onGameOver(GameState state);
   void onRestart();
-  void onTimerChange(GameState state);
-  void onTimerLimitedChange(GameState turn);
+  void onTimerChange();
   void onSwitchTurn(Turn turn);
 }
