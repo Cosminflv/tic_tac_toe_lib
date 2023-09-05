@@ -235,4 +235,10 @@ class Game implements IGame {
 
   @override
   Stopwatch get stopWatchLimited => _stopWatchLimited;
+
+  @override
+  Duration get stopWatchElapsed => _stopWatch.elapsed;
+
+  @override
+  Duration get stopWatchLimitedElapsed => _stopWatchLimited.elapsed;
 }

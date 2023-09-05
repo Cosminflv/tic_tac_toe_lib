@@ -19,6 +19,8 @@ abstract class IGame {
   List<List<Piece?>>? get gameBoard;
 
   Turn get turn;
+  Duration get stopWatchElapsed;
+  Duration get stopWatchLimitedElapsed;
   Stopwatch get stopWatch;
   Stopwatch get stopWatchLimited;
 

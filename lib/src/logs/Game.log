@@ -1300,3 +1300,28 @@ lled
 10:43:09.686 (+0:05:05.039466) 💡 Game: notifyPiecePlaced(p, pieceBasedOnTurn()) has been called
 10:43:09.696 (+0:05:05.049459) 💡 Game: switchTurn called
 10:43:11.125 (+0:05:06.478719) ⛔ Game: Game has restarted
+10:45:58.291 (+0:07:53.644519) ⛔ Game: Game has restarted
+11:55:05.261 (+-0:00:00.001000) ⛔ Game: Game has restarted
+11:55:07.053 (+0:00:01.791318) 💡 Game: placePiece(p, pieceBasedOnTurn()) has been called
+11:55:07.054 (+0:00:01.792309) 💡 Game: notifyPiecePlaced(p, pieceBasedOnTurn()) has been called
+11:55:07.068 (+0:00:01.806302) 💡 Game: switchTurn called
+11:55:08.135 (+0:00:02.872883) 💡 Game: placePiece(p, pieceBasedOnTurn()) has been called
+11:55:08.136 (+0:00:02.873883) 💡 Game: notifyPiecePlaced(p, pieceBasedOnTurn()) has been called
+11:55:08.149 (+0:00:02.886866) 💡 Game: switchTurn called
+11:55:09.148 (+0:00:03.886036) 💡 Game: placePiece(p, pieceBasedOnTurn()) has been called
+11:55:09.149 (+0:00:03.887036) 💡 Game: notifyPiecePlaced(p, pieceBasedOnTurn()) has been called
+11:55:09.162 (+0:00:03.900032) 💡 Game: switchTurn called
+11:55:10.132 (+0:00:04.870243) 💡 Game: placePiece(p, pieceBasedOnTurn()) has been called
+11:55:10.132 (+0:00:04.870243) 💡 Game: notifyPiecePlaced(p, pieceBasedOnTurn()) has been called
+11:55:10.146 (+0:00:04.884236) 💡 Game: switchTurn called
+11:58:36.896 (+-0:00:00.001999) ⛔ Game: Game has restarted
+11:58:42.037 (+0:00:05.139519) 💡 Game: placePiece(p, pieceBasedOnTurn()) has been called
+11:58:42.039 (+0:00:05.141524) 💡 Game: notifyPiecePlaced(p, pieceBasedOnTurn()) has been called
+11:58:42.051 (+0:00:05.153517) 💡 Game: bestMove(_mGameBoard) called
+11:58:42.107 (+0:00:05.209642) 💡 Game: placePiece(toPlacePosition, pieceBasedOnTurn() + 1) called
+11:58:42.107 (+0:00:05.209642) 💡 Game: notifyPiecePlaced(toPlacePosition, Piece.Zero) called
+11:58:43.053 (+0:00:06.155388) 💡 Game: placePiece(p, pieceBasedOnTurn()) has been called
+11:58:43.053 (+0:00:06.155388) 💡 Game: notifyPiecePlaced(p, pieceBasedOnTurn()) has been called
+11:58:43.065 (+0:00:06.167395) 💡 Game: bestMove(_mGameBoard) called
+11:58:43.077 (+0:00:06.179377) 💡 Game: placePiece(toPlacePosition, pieceBasedOnTurn() + 1) called
+11:58:43.086 (+0:00:06.188371) 💡 Game: notifyPiecePlaced(toPlacePosition, Piece.Zero) called

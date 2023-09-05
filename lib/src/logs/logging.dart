@@ -8,7 +8,7 @@ Logger logger(Type type) {
   final logFile = File(logFilePathWithType);
   //Logger(printer: CustomerPrinter(type.toString()), level: Level.trace);
   final printer = CustomerPrinter(type.toString(), logFile);
-  return Logger(printer: printer, level: Level.trace);
+  return Logger(printer: printer);
 }
 
 class CustomerPrinter extends LogPrinter {
