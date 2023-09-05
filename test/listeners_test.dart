@@ -22,7 +22,7 @@ void main() {
     g.placePiece(Position(1, 0));
     g.placePiece(Position(0, 0));
 
-    verify(listenerMock.onPiecePlaced(any, any)).called(2);
+    verify(listenerMock.onPiecePlaced(any, any)).called(4);
 
     g.removeListener(listenerMock);
   });

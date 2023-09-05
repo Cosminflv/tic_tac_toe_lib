@@ -15,6 +15,7 @@ class CustomerPrinter extends LogPrinter {
   final String className;
   final File logFile;
   CustomerPrinter(this.className, this.logFile);
+
   @override
   List<String> log(LogEvent event) {
     final color = PrettyPrinter.defaultLevelColors[event.level];
@@ -24,7 +25,7 @@ class CustomerPrinter extends LogPrinter {
 
     final logMessage = '$time $emoji $className: $message';
 
-    //logFile.writeAsStringSync('$logMessage\n', mode: FileMode.append);
+    logFile.writeAsStringSync('$logMessage\n', mode: FileMode.append);
 
     return [color!('$time $emoji $className: $message')];
   }

@@ -25,7 +25,7 @@ class Game implements IGame {
     if (wantTimer == true) {
       _stopWatch.start();
       _stopWatchLimited.start();
-      stopWatchRefresh();
+      initTimer();
     }
   }
 
@@ -42,31 +42,25 @@ class Game implements IGame {
   GameState _mState = GameState.Playing;
   ListenerList listeners = [];
   IStrategy? _mStrategy;
+
   late Timer _timer;
   final Stopwatch _stopWatch = Stopwatch();
   final Stopwatch _stopWatchLimited = Stopwatch();
 
-  void stopWatchRefresh() {
+  void initTimer() {
     _timer = Timer.periodic(const Duration(milliseconds: 50), (Timer t) async {
       notifyTimerChange();
-      if (!isOver()) {
-        if (_stopWatchLimited.elapsedMilliseconds > 10000) {
-          if (_mTurn == Turn.crossTurn) {
-            _mState = GameState.ZeroWon;
-          } else {
-            _mState = GameState.CrossWon;
-          }
-          notifyGameOver(_mState);
-          _timer.cancel();
-          _stopWatchLimited.stop();
-        }
+
+      if (_stopWatchLimited.elapsedMilliseconds > 10000) {
+        _mState = _mTurn == Turn.crossTurn ? GameState.ZeroWon : GameState.CrossWon;
       }
 
       if (isOver()) {
+        notifyGameOver(_mState);
+
         _stopWatch.stop();
+        _stopWatchLimited.stop();
         _timer.cancel();
-      } else {
-        notifyTimerChange();
       }
     });
   }
@@ -142,7 +136,7 @@ class Game implements IGame {
     _stopWatchLimited.start();
     _stopWatch.reset();
     _stopWatch.start();
-    stopWatchRefresh();
+    initTimer();
     notifyRestart();
   }
 
